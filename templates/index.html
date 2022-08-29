@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>MHCB</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/static/dist/jquery.convform.css?v1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/static/demo.css">
+</head>
+
+<body>
+	<section id="demo">
+		<div class="vertical-align">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
+						<img src="https://aiisc.ai/assets/img/logo.png"
+							style="width: 150px;margin: 0 auto;display: block;" />
+						<h2 style="margin: 0 auto;display: block;width: 342px; margin-bottom:10px;">MH Conversational
+							Agent</h2>
+						<div class="card no-border">
+							<div id="chat" class="conv-form-wrapper">
+								<div>
+
+								
+								<form id="chat" action="" method="GET" class="hidden">
+									<input type="text" data-conv-question="Hello" name="name" />
+									<input type="text" data-conv-question="How are you doing today?" name="name" />
+									<input type="text" data-conv-question="Why?" name="name" />
+									<input type="text" data-conv-question="Do you feel nervous?" name="name" />
+									<input type="text" data-conv-question="Do you feel irritated?" name="name" />
+									<input type="text" data-conv-question="Are you bothered by becoming easily annoyed or irritable?" name="name" />
+									<input type="text" data-conv-question="Are you bothered by any relaxation troubles?" name="name" />
+									<input type="text" data-conv-question="Oh okay. What else is going on with you?" name="name" />
+									<input type="text" data-conv-question="I’m sorry you feel this way. How can I help?" name="name" />
+									<input type="text" data-conv-question="Have you been taking Flouxetine?" name="name" />
+									<input type="text" data-conv-question="Have they prescribed you enough refills?" name="name" />
+									<input type="text" data-conv-question="Hmm, do you want to talk me through it" name="name" />
+									<input type="text" data-conv-question="I see. Let’s see what we can do to help." name="name" />
+									<input type="text" data-conv-question="Have you done your exercise this week?" name="name" />
+									<input type="text" data-conv-question="That’s great! I’m glad to hear that. Keep going, I would say.." name="name" />
+								</form>
+								
+							</div>
+
+							
+
+							<div style="text-align:center;color: #c3c3c3;"><small>Type "end" to finish the
+									conversion.</small></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript" src="/static/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="/static/dist/autosize.min.js"></script>
+	<script type="text/javascript" src="/static/dist/jquery.convform.js?v1.0"></script>
+
+
+	
+	<script>
+		jQuery(function ($) {
+			convForm = $('#chat').convform({ selectInputStyle: 'disable' });
+			console.log(convForm);
+		});
+	</script>
+	<script>
+		function appendAll(data) {
+			$("#chatbox").append(data.user);
+			$("#chatbox").append(data.bot);
+			document.getElementById('userInput').scrollIntoView({
+				block: 'start',
+				behavior: 'smooth'
+			});
+		}
+
+		function getBotResponse() {
+			var text = $("#textInput").val();
+			$("#textInput").val("");
+			$.get("/get", {
+				msg: text
+			}).done(appendAll);
+		}
+		$("#textInput").keypress(function(e) {
+			if (e.which == 13) getBotResponse();
+		});
+		$("#buttonInput").click(getBotResponse)
+	</script>
+
+</body>
+
+</html>
